@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Mariam Ouattara" />
+
+<meta name="date" content="2022-04-05" />
+
+<title>Script3</title>
+
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="site_libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="site_libs/leaflet-binding-2.1.1/leaflet.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="css/styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="script1.html">script 1</a>
+</li>
+<li>
+  <a href="script2.html">script 2</a>
+</li>
+<li>
+  <a href="script3.html">script 3</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/beababa/beababa.github.io">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Script3</h1>
+<h4 class="author">Mariam Ouattara</h4>
+<h4 class="date">04/05/2022</h4>
+
+</div>
+
+
+<div id="le-monde" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> le monde</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>() <span class="sc">%&gt;%</span> <span class="fu">addTiles</span>()</span></code></pre></div>
+<div id="htmlwidget-bad5be7c1feb9c67309e" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bad5be7c1feb9c67309e">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}]},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/insee.gpkg&quot;</span>)</span></code></pre></div>
+<pre><code>## Multiple layers are present in data source /Users/macbookpro/Desktop/ProjetFinalSig/Ouattara/data/insee.gpkg, reading layer `idf&#39;.
+## Use `st_layers&#39; to list all layer names and their type in a data source.
+## Set the `layer&#39; argument in `st_read&#39; to read a particular layer.
+## Reading layer `idf&#39; from data source 
+##   `/Users/macbookpro/Desktop/ProjetFinalSig/Ouattara/data/insee.gpkg&#39; 
+##   using driver `GPKG&#39;
+## Simple feature collection with 73214 features and 42 fields
+## Geometry type: MULTIPOLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 586673.7 ymin: 6780073 xmax: 738408.8 ymax: 6905080
+## Projected CRS: RGF93 / Lambert-93</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;data/insee.gpkg&quot;</span>,<span class="st">&quot;bondy&quot;</span>)</span></code></pre></div>
+<pre><code>## Reading layer `bondy&#39; from data source 
+##   `/Users/macbookpro/Desktop/ProjetFinalSig/Ouattara/data/insee.gpkg&#39; 
+##   using driver `GPKG&#39;
+## Simple feature collection with 188 features and 42 fields
+## Geometry type: POLYGON
+## Dimension:     XY
+## Bounding box:  xmin: 661088.1 ymin: 6865338 xmax: 663354.7 ymax: 6869043
+## Projected CRS: RGF93 / Lambert-93</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_layers</span>(<span class="st">&quot;data/insee.gpkg&quot;</span>)</span></code></pre></div>
+<pre><code>## Driver: GPKG 
+## Available layers:
+##   layer_name geometry_type features fields
+## 1        idf                  73214     42
+## 2      bondy       Polygon      188     42</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">st_transform</span>(data, <span class="dv">4326</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#pour lire les donnée dans data</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(data)</span></code></pre></div>
+<pre><code>##   IdINSPIRE          Id_carr1km           I_est_cr        Id_carr_n        
+##  Length:188         Length:188         Min.   :0.00000   Length:188        
+##  Class :character   Class :character   1st Qu.:0.00000   Class :character  
+##  Mode  :character   Mode  :character   Median :0.00000   Mode  :character  
+##                                        Mean   :0.07979                     
+##                                        3rd Qu.:0.00000                     
+##                                        Max.   :1.00000                     
+##      Groupe          Depcom              I_pauv   Id_car2010       
+##  Min.   :862807   Length:188         Min.   :0   Length:188        
+##  1st Qu.:866408   Class :character   1st Qu.:0   Class :character  
+##  Median :866456   Mode  :character   Median :0   Mode  :character  
+##  Mean   :867596                      Mean   :0                     
+##  3rd Qu.:870065                      3rd Qu.:0                     
+##  Max.   :870141                      Max.   :0                     
+##       Ind              Men           Men_pauv         Men_1ind     
+##  Min.   :   3.0   Min.   :  1.0   Min.   :  0.00   Min.   :  0.00  
+##  1st Qu.: 197.4   1st Qu.: 64.0   1st Qu.: 11.00   1st Qu.: 12.00  
+##  Median : 325.5   Median :110.0   Median : 22.00   Median : 23.00  
+##  Mean   : 377.5   Mean   :131.3   Mean   : 32.82   Mean   : 35.48  
+##  3rd Qu.: 498.1   3rd Qu.:174.5   3rd Qu.: 42.00   3rd Qu.: 46.25  
+##  Max.   :2012.5   Max.   :679.0   Max.   :294.00   Max.   :247.00  
+##     Men_5ind        Men_prop         Men_fmp          Ind_snv        
+##  Min.   :  0.1   Min.   :  0.00   Min.   :  0.00   Min.   :   71088  
+##  1st Qu.: 10.0   1st Qu.: 18.00   1st Qu.:  5.00   1st Qu.: 3623505  
+##  Median : 17.0   Median : 50.50   Median : 11.00   Median : 6112521  
+##  Mean   : 22.2   Mean   : 57.62   Mean   : 18.64   Mean   : 6754142  
+##  3rd Qu.: 27.0   3rd Qu.: 85.00   3rd Qu.: 25.00   3rd Qu.: 9346134  
+##  Max.   :137.0   Max.   :247.00   Max.   :162.00   Max.   :30530720  
+##     Men_surf          Men_coll         Men_mais         Log_av45     
+##  Min.   :   73.8   Min.   :  0.00   Min.   :  0.00   Min.   :  0.00  
+##  1st Qu.: 4481.0   1st Qu.: 10.00   1st Qu.: 14.00   1st Qu.:  5.30  
+##  Median : 7919.0   Median : 47.00   Median : 40.00   Median : 21.50  
+##  Mean   : 8542.2   Mean   : 88.59   Mean   : 42.69   Mean   : 31.41  
+##  3rd Qu.:11338.8   3rd Qu.:127.00   3rd Qu.: 64.00   3rd Qu.: 49.00  
+##  Max.   :37604.0   Max.   :675.00   Max.   :193.00   Max.   :200.00  
+##    Log_45_70        Log_70_90         Log_ap90         Log_inc       
+##  Min.   :  0.00   Min.   :  0.00   Min.   :  0.00   Min.   :0.00000  
+##  1st Qu.:  7.75   1st Qu.:  2.00   1st Qu.:  3.00   1st Qu.:0.00000  
+##  Median : 19.00   Median :  6.00   Median :  9.00   Median :0.00000  
+##  Mean   : 53.74   Mean   : 16.66   Mean   : 29.38   Mean   :0.09043  
+##  3rd Qu.: 60.25   3rd Qu.: 15.25   3rd Qu.: 27.75   3rd Qu.:0.00000  
+##  Max.   :626.00   Max.   :234.00   Max.   :457.00   Max.   :6.00000  
+##     Log_soc          Ind_0_3          Ind_4_5          Ind_6_10     
+##  Min.   :  0.00   Min.   :  0.00   Min.   : 0.000   Min.   :  0.20  
+##  1st Qu.:  0.00   1st Qu.: 10.00   1st Qu.: 4.375   1st Qu.: 14.38  
+##  Median :  0.00   Median : 19.75   Median :10.500   Median : 24.00  
+##  Mean   : 51.57   Mean   : 26.23   Mean   :13.079   Mean   : 31.48  
+##  3rd Qu.: 65.75   3rd Qu.: 36.25   3rd Qu.:17.125   3rd Qu.: 40.12  
+##  Max.   :675.00   Max.   :169.50   Max.   :86.000   Max.   :179.00  
+##    Ind_11_17        Ind_18_24        Ind_25_39        Ind_40_54     
+##  Min.   :  0.00   Min.   :  0.10   Min.   :  0.50   Min.   :  0.60  
+##  1st Qu.: 16.00   1st Qu.: 10.00   1st Qu.: 34.88   1st Qu.: 39.75  
+##  Median : 29.75   Median : 18.00   Median : 66.50   Median : 64.50  
+##  Mean   : 38.66   Mean   : 22.62   Mean   : 80.61   Mean   : 73.66  
+##  3rd Qu.: 48.50   3rd Qu.: 32.00   3rd Qu.:107.25   3rd Qu.: 95.25  
+##  Max.   :233.00   Max.   :154.50   Max.   :449.00   Max.   :368.00  
+##    Ind_55_64        Ind_65_79         Ind_80p         Ind_inc         I_est_1km
+##  Min.   :  0.20   Min.   :  0.20   Min.   : 0.00   Min.   : 0.000   Min.   :0  
+##  1st Qu.: 21.00   1st Qu.: 15.00   1st Qu.: 5.00   1st Qu.: 2.000   1st Qu.:0  
+##  Median : 36.00   Median : 29.00   Median :11.00   Median : 5.000   Median :0  
+##  Mean   : 41.26   Mean   : 31.64   Mean   :11.92   Mean   : 6.386   Mean   :0  
+##  3rd Qu.: 57.00   3rd Qu.: 41.00   3rd Qu.:16.00   3rd Qu.: 9.000   3rd Qu.:0  
+##  Max.   :209.00   Max.   :166.00   Max.   :48.00   Max.   :27.000   Max.   :0  
+##   code_insee            nom               nuts2            wikipedia        
+##  Length:188         Length:188         Length:188         Length:188        
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##     surf_km2                geom    
+##  Min.   :12069   POLYGON      :188  
+##  1st Qu.:12069   epsg:4326    :  0  
+##  Median :12069   +proj=long...:  0  
+##  Mean   :12069                      
+##  3rd Qu.:12069                      
+##  Max.   :12069</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#j&#39;ai choisi la donné Men_5ind qui représente le nombre de menage avec plus de 5 personnes</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>Men_5ind</span></code></pre></div>
+<pre><code>##   [1]   4.0  19.0  25.0   2.0  22.0  32.0  16.0  13.0  33.0  14.0   9.0  23.0
+##  [13]  60.0   6.3   4.0  27.0  14.0  14.0  14.0   7.0   4.0  17.0  14.0   4.0
+##  [25]  23.0  46.0  12.0  23.0  44.0  23.0   2.6  17.0  23.0   4.0   5.0   3.0
+##  [37]  19.0  21.0   5.0  21.0  22.0  71.0  48.0  15.0  30.0  21.0  15.0  15.0
+##  [49]   1.6  18.0  38.0  15.0  19.0  17.0  50.0  37.0   2.0  37.0   1.5  27.0
+##  [61]  14.0  37.0  80.0  10.0  49.0  30.0  22.0  11.0   4.4  14.0  17.0  16.0
+##  [73]  25.0  29.0  23.0  39.0  25.0  19.0  18.0   6.0  24.0   3.0   6.0   6.0
+##  [85]  16.0  10.0  55.0  18.0   7.0  11.0  35.0  18.0   0.3  15.0  93.0  15.0
+##  [97]  41.0  56.0  21.0  15.0  31.0  49.0  28.0  25.0   7.0  48.0  23.0  25.0
+## [109]  13.0  19.0  16.0  17.0  61.0   0.8  21.0   7.0   5.0  24.0  28.0  16.0
+## [121]  32.0  14.0  67.0  13.0  82.0  64.0  77.0   0.4   3.8  22.0  41.0   0.3
+## [133]   7.0  30.0  12.0  14.0  17.0   3.6   2.7   5.0  32.0  23.0  26.0 137.0
+## [145]  44.0  47.0   9.0  28.0  26.0  13.0  15.0  12.0   4.0  63.0  32.0  12.0
+## [157]  16.0   1.0  22.0  12.0  25.0  14.0  70.0  47.0   4.0  12.0   9.0  25.0
+## [169]  21.0  11.0   0.7  21.0  22.0   9.0  23.0   2.0   1.3  20.0  30.0   9.0
+## [181]  17.0   0.1  25.0  15.0  10.0  16.0   8.0  18.0</code></pre>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">colorNumeric</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">domain =</span> data<span class="sc">$</span>Men_5ind</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">leaflet</span>(data) <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addPolygons</span>(<span class="at">color =</span> <span class="st">&quot;#444444&quot;</span>, <span class="at">weight =</span> <span class="dv">1</span>, <span class="at">smoothFactor =</span> <span class="fl">0.5</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">opacity =</span> <span class="fl">1.0</span>, <span class="at">fillOpacity =</span> <span class="fl">0.5</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">colorQuantile</span>(<span class="st">&quot;YlOrRd&quot;</span>, Men_5ind)(Men_5ind),</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">highlightOptions =</span> <span class="fu">highlightOptions</span>(<span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">weight =</span> <span class="dv">2</span>,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">bringToFront =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="fu">addLegend</span>(<span class="st">&quot;bottomright&quot;</span>, <span class="at">pal =</span> pal, <span class="at">values =</span> <span class="sc">~</span>Men_5ind,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot; Nb Ménage avec ou plus de 5 pers&quot;</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">opacity =</span> <span class="dv">1</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> <span class="fu">addTiles</span>()</span></code></pre></div>
+<div id="htmlwidget-d61575c57b337a72c9a6" style="width:672px;height:480px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d61575c57b337a72c9a6">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addPolygons","args":[[[[{"lng":[2.49974922662338,2.50002099909426,2.49730566708962,2.49703379797248,2.49974922662338],"lat":[48.8983970971121,48.896608815207,48.8964258640132,48.8982141383085,48.8983970971121]}]],[[{"lng":[2.48345692918172,2.48372928149208,2.48101405930203,2.48074161036065,2.48345692918172],"lat":[48.8972983546642,48.8955101184577,48.8953267714343,48.897115000015,48.8972983546642]}]],[[{"lng":[2.49431838761072,2.49459035337159,2.49187505794648,2.49160299554443,2.49431838761072],"lat":[48.8980311135289,48.8962428468459,48.896059763706,48.8978480227738,48.8980311135289]}]],[[{"lng":[2.48454618948598,2.48481844251562,2.4821036067636,2.48183125713735,2.48454618948598],"lat":[48.8901453966122,48.8883571515873,48.88817383506,48.889962072462,48.8901453966122]}]],[[{"lng":[2.49757751142478,2.49784933098119,2.49513421052478,2.49486229434187,2.49757751142478],"lat":[48.8946375875173,48.8928493088205,48.892666306876,48.8944545779617,48.8946375875173]}]],[[{"lng":[2.49160299554443,2.49187505794648,2.48915978082064,2.48888762177994,2.49160299554443],"lat":[48.8978480227738,48.896059763706,48.8958766145943,48.8976648660443,48.8978480227738]}]],[[{"lng":[2.48074161036065,2.48101405930203,2.47829885543657,2.47802630986672,2.48074161036065],"lat":[48.897115000015,48.8953267714343,48.8951433584419,48.8969315793942,48.897115000015]}]],[[{"lng":[2.4785713761642,2.47884387205283,2.47612887974434,2.47585628724699,2.4785713761642],"lat":[48.8933551352842,48.8915669099205,48.8913834462199,48.8931716639538,48.8933551352842]}]],[[{"lng":[2.47802630986672,2.47829885543657,2.47558366990203,2.47531102770626,2.47802630986672],"lat":[48.8969315793942,48.8951433584419,48.8949598794812,48.8967480928023,48.8969315793942]}]],[[{"lng":[2.49812112576205,2.49842437697708,2.49820661302616,2.49812112576205],"lat":[48.8910610279226,48.891081462861,48.8904985238839,48.8910610279226]}]],[[{"lng":[2.48860867145392,2.48843254104021,2.48878239900243,2.490946160931,2.48860867145392],"lat":[48.91751872728,48.9186751592552,48.918626821244,48.91767635138,48.91751872728]}]],[[{"lng":[2.48128648340979,2.48155888268715,2.47884387205283,2.4785713761642,2.48128648340979],"lat":[48.8935385406488,48.8917503076581,48.8915669099205,48.8933551352842,48.8935385406488]}]],[[{"lng":[2.48888762177994,2.48915978082064,2.4864445220004,2.4861722663236,2.48888762177994],"lat":[48.8976648660443,48.8958766145943,48.8956933995112,48.8974816433408,48.8976648660443]}]],[[{"lng":[2.47640144739732,2.47911634310569,2.47938878932599,2.4792964695668,2.47659182990835,2.47640144739732],"lat":[48.8895952262791,48.8897786823507,48.8879904525743,48.8879842152389,48.8883460918967,48.8895952262791]}]],[[{"lng":[2.48183125713735,2.4821036067636,2.47938878932599,2.47911634310569,2.48183125713735],"lat":[48.889962072462,48.88817383506,48.8879904525743,48.8897786823507,48.889962072462]}]],[[{"lng":[2.49486229434187,2.49513421052478,2.49241910835623,2.49214709554934,2.49486229434187],"lat":[48.8944545779617,48.892666306876,48.8924832389642,48.8942715024363,48.8944545779617]}]],[[{"lng":[2.49703379797248,2.49730566708962,2.49459035337159,2.49431838761072,2.49703379797248],"lat":[48.8982141383085,48.8964258640132,48.8962428468459,48.8980311135289,48.8982141383085]}]],[[{"lng":[2.48290326134902,2.48282563250733,2.48532811247713,2.48290326134902],"lat":[48.9189403975458,48.9194496840226,48.9191040328362,48.9189403975458]}]],[[{"lng":[2.49540610192355,2.49812112576205,2.49820661302616,2.49808812361489,2.49648478486486,2.49564432924269,2.49540610192355],"lat":[48.8908780335883,48.8910610279226,48.8904985238839,48.8901813301769,48.8895384446953,48.8893110364453,48.8908780335883]}]],[[{"lng":[2.47585628724699,2.47612887974434,2.47341390576801,2.47314121666449,2.47585628724699],"lat":[48.8931716639538,48.8913834462199,48.891199916557,48.8929881266586,48.8931716639538]}]],[[{"lng":[2.50002099909426,2.49974922662338,2.50012363131394,2.50016703930639,2.50002099909426],"lat":[48.896608815207,48.8983970971121,48.8984223180362,48.8966186529584,48.896608815207]}]],[[{"lng":[2.49296305959495,2.49269109637036,2.49540610192355,2.49564432924269,2.49454403763107,2.49296305959495],"lat":[48.8889067054118,48.8906949732894,48.8908780335883,48.8893110364453,48.8890133104732,48.8889067054118]}]],[[{"lng":[2.48400160897743,2.48427391164099,2.48155888268715,2.48128648340979,2.48400160897743],"lat":[48.8937218800471,48.891933639432,48.8917503076581,48.8935385406488,48.8937218800471]}]],[[{"lng":[2.47060313098766,2.47314121666449,2.47341390576801,2.47094445483966,2.47060313098766],"lat":[48.8928164925387,48.8929881266586,48.891199916557,48.8910329254805,48.8928164925387]}]],[[{"lng":[2.48779873747475,2.48807099577885,2.48535535036255,2.4850829953879,2.48779873747475],"lat":[48.9048178498239,48.9030296071814,48.9028463616123,48.9046345966315,48.9048178498239]}]],[[{"lng":[2.49214709554934,2.49241910835623,2.48970402448185,2.48943191505353,2.49214709554934],"lat":[48.8942715024363,48.8924832389642,48.8923001050857,48.8940883609415,48.8942715024363]}]],[[{"lng":[2.48290326134902,2.48018676393275,2.48002210782585,2.48282563250733,2.48290326134902],"lat":[48.9189403975458,48.918757017336,48.9198368488858,48.9194496840226,48.9189403975458]}]],[[{"lng":[2.48943191505353,2.48970402448185,2.486988958908,2.48671675286079,2.48943191505353],"lat":[48.8940883609415,48.8923001050857,48.8921169052414,48.8939051534782,48.8940883609415]}]],[[{"lng":[2.47531102770626,2.47558366990203,2.47286850270475,2.47259576388559,2.47531102770626],"lat":[48.8967480928023,48.8949598794812,48.8947763345528,48.8965645402401,48.8967480928023]}]],[[{"lng":[2.4861722663236,2.4864445220004,2.48372928149208,2.48345692918172,2.4861722663236],"lat":[48.8974816433408,48.8956933995112,48.8955101184577,48.8972983546642,48.8974816433408]}]],[[{"lng":[2.46992041217822,2.47259576388559,2.47286850270475,2.4702617834348,2.46992041217822],"lat":[48.8963836199803,48.8965645402401,48.8947763345528,48.8946000573719,48.8963836199803]}]],[[{"lng":[2.47472283052525,2.47475382416063,2.47440487375454,2.47472283052525],"lat":[48.9185931759875,48.9183900589033,48.9183664802221,48.9185931759875]}]],[[{"lng":[2.49567408054449,2.49594607361979,2.49323027659703,2.49295818683495,2.49567408054449],"lat":[48.907155476788,48.9053672134906,48.9051841582542,48.9069724139355,48.907155476788]}]],[[{"lng":[2.48860867145392,2.48589223409598,2.48562911075175,2.48843254104021,2.48860867145392],"lat":[48.91751872728,48.9173354867079,48.9190624540755,48.9186751592552,48.91751872728]}]],[[{"lng":[2.47132375608387,2.4712857549937,2.47368657001856,2.4737919345467,2.47132375608387],"lat":[48.8890507619734,48.889249356197,48.8894117042478,48.8887206438429,48.8890507619734]}]],[[{"lng":[2.48018676393275,2.47747028486784,2.47722075458057,2.47946644211797,2.48002210782585,2.48018676393275],"lat":[48.918757017336,48.9185735711216,48.9202094108447,48.9199135774547,48.9198368488858,48.918757017336]}]],[[{"lng":[2.49866188894185,2.49594607361979,2.49567408054449,2.49820079221076,2.49844917098742,2.49866188894185],"lat":[48.9055502027404,48.9053672134906,48.907155476788,48.9073257274596,48.9069492660461,48.9055502027404]}]],[[{"lng":[2.47529948713615,2.47557228130571,2.47285612912449,2.47279190161009,2.47323568283361,2.47529948713615],"lat":[48.9148136676808,48.9130254687667,48.9128419134623,48.9132627929914,48.9146742024062,48.9148136676808]}]],[[{"lng":[2.48671675286079,2.486988958908,2.48427391164099,2.48400160897743,2.48671675286079],"lat":[48.8939051534782,48.8921169052414,48.891933639432,48.8937218800471,48.8939051534782]}]],[[{"lng":[2.49186957965534,2.49214176867638,2.48942560317061,2.48915331743087,2.49186957965534],"lat":[48.9141254146705,48.9123371677847,48.9121540160832,48.9139422553475,48.9141254146705]}]],[[{"lng":[2.49404639705605,2.49431838761072,2.49160299554443,2.49133090833997,2.49404639705605],"lat":[48.8998193780108,48.8980311135289,48.8978480227738,48.89963627964,48.8998193780108]}]],[[{"lng":[2.47747028486784,2.47475382416063,2.47472283052525,2.47702584364408,2.47722075458057,2.47747028486784],"lat":[48.9185735711216,48.9183900589033,48.9185931759875,48.9202350850934,48.9202094108447,48.9185735711216]}]],[[{"lng":[2.48915331743087,2.48942560317061,2.48670945598699,2.48643707353109,2.48915331743087],"lat":[48.9139422553475,48.9121540160832,48.9119707983858,48.9137590300259,48.9139422553475]}]],[[{"lng":[2.49784933098119,2.49757751142478,2.49980910031052,2.49911671346808,2.49784933098119],"lat":[48.8928493088205,48.8946375875173,48.8947879492033,48.892934708176,48.8928493088205]}]],[[{"lng":[2.47279190161009,2.47285612912449,2.47265530385486,2.47279190161009],"lat":[48.9132627929914,48.9128419134623,48.9128283390401,48.9132627929914]}]],[[{"lng":[2.49295818683495,2.49323027659703,2.4905144978799,2.49024231143358,2.49295818683495],"lat":[48.9069724139355,48.9051841582542,48.9050010370317,48.9067892850943,48.9069724139355]}]],[[{"lng":[2.49323027659703,2.49350234155243,2.49078665951092,2.4905144978799,2.49323027659703],"lat":[48.9051841582542,48.9033959003731,48.9032127867686,48.9050010370317,48.9051841582542]}]],[[{"lng":[2.49866188894185,2.49844917098742,2.4993419749614,2.49866188894185],"lat":[48.9055502027404,48.9069492660461,48.9055960154085,48.9055502027404]}]],[[{"lng":[2.49024231143358,2.4905144978799,2.48779873747475,2.48752645434673,2.49024231143358],"lat":[48.9067892850943,48.9050010370317,48.9048178498239,48.9066060902652,48.9067892850943]}]],[[{"lng":[2.49866188894185,2.49893376053838,2.49621804189702,2.49594607361979,2.49866188894185],"lat":[48.9055502027404,48.9037619296315,48.9035789479943,48.9053672134906,48.9055502027404]}]],[[{"lng":[2.48997610910881,2.49024816893763,2.48753329657574,2.48726114014524,2.48997610910881],"lat":[48.8905118470266,48.8887235867639,48.8885404021555,48.8903286548006,48.8905118470266]}]],[[{"lng":[2.49269109637036,2.49296305959495,2.49024816893763,2.48997610910881,2.49269109637036],"lat":[48.8906949732894,48.8889067054118,48.8887235867639,48.8905118470266,48.8906949732894]}]],[[{"lng":[2.48752645434673,2.48779873747475,2.4850829953879,2.48481061558073,2.48752645434673],"lat":[48.9066060902652,48.9048178498239,48.9046345966315,48.9064228294488,48.9066060902652]}]],[[{"lng":[2.48861543792823,2.48888762177994,2.4861722663236,2.48589998582717,2.48861543792823],"lat":[48.8994531152919,48.8976648660443,48.8974816433408,48.8992698849673,48.8994531152919]}]],[[{"lng":[2.4850829953879,2.48535535036255,2.48263972326834,2.4823672716257,2.4850829953879],"lat":[48.9046345966315,48.9028463616123,48.902663050062,48.9044512774552,48.9046345966315]}]],[[{"lng":[2.4823672716257,2.48263972326834,2.47992411450257,2.47965156619448,2.4823672716257],"lat":[48.9044512774552,48.902663050062,48.9024796725313,48.9042678922958,48.9044512774552]}]],[[{"lng":[2.48643707353109,2.48670945598699,2.48399332713185,2.48372084796235,2.48643707353109],"lat":[48.9137590300259,48.9119707983858,48.911787514693,48.9135757387063,48.9137590300259]}]],[[{"lng":[2.47265530385486,2.47285612912449,2.47312899512297,2.4720749665716,2.47265530385486],"lat":[48.9128283390401,48.9128419134623,48.9110537199834,48.9109824714166,48.9128283390401]}]],[[{"lng":[2.49214176867638,2.49186957965534,2.49363530109911,2.49477678782841,2.49214176867638],"lat":[48.9123371677847,48.9141254146705,48.9142444418613,48.9125147834567,48.9123371677847]}]],[[{"lng":[2.48589223409598,2.48317581507416,2.48290326134902,2.48532811247713,2.48562911075175,2.48589223409598],"lat":[48.9173354867079,48.9171521801323,48.9189403975458,48.9191040328362,48.9190624540755,48.9173354867079]}]],[[{"lng":[2.49893376053838,2.49866188894185,2.4993419749614,2.49997401868069,2.49999338900012,2.49893376053838],"lat":[48.9037619296315,48.9055502027404,48.9055960154085,48.9046379595891,48.9038333072926,48.9037619296315]}]],[[{"lng":[2.49133090833997,2.49160299554443,2.48888762177994,2.48861543792823,2.49133090833997],"lat":[48.89963627964,48.8978480227738,48.8976648660443,48.8994531152919,48.89963627964]}]],[[{"lng":[2.47965156619448,2.47992411450257,2.47720852407158,2.47693587910058,2.47965156619448],"lat":[48.9042678922958,48.9024796725313,48.9022962290207,48.9040844411539,48.9042678922958]}]],[[{"lng":[2.48726114014524,2.48753329657574,2.48481844251562,2.48454618948598,2.48726114014524],"lat":[48.8903286548006,48.8885404021555,48.8883571515873,48.8901453966122,48.8903286548006]}]],[[{"lng":[2.48372084796235,2.48399332713185,2.48127721661155,2.48100464073098,2.48372084796235],"lat":[48.9135757387063,48.911787514693,48.9116041650057,48.9133923813894,48.9135757387063]}]],[[{"lng":[2.48290326134902,2.48317581507416,2.48045941439481,2.48018676393275,2.48290326134902],"lat":[48.9189403975458,48.9171521801323,48.9169688075542,48.918757017336,48.9189403975458]}]],[[{"lng":[2.47747028486784,2.47774303206426,2.47502666808887,2.47475382416063,2.47747028486784],"lat":[48.9185735711216,48.9167853689742,48.9166018643929,48.9183900589033,48.9185735711216]}]],[[{"lng":[2.49974922662338,2.49947742937592,2.50008022026566,2.50012363131394,2.49974922662338],"lat":[48.8983970971121,48.9001853768177,48.9002259821176,48.8984223180362,48.8983970971121]}]],[[{"lng":[2.4905144978799,2.49078665951092,2.48807099577885,2.48779873747475,2.4905144978799],"lat":[48.9050010370317,48.9032127867686,48.9030296071814,48.9048178498239,48.9050010370317]}]],[[{"lng":[2.48018676393275,2.48045941439481,2.47774303206426,2.47747028486784,2.48018676393275],"lat":[48.918757017336,48.9169688075542,48.9167853689742,48.9185735711216,48.918757017336]}]],[[{"lng":[2.47439439331481,2.47440487375454,2.47475382416063,2.47502666808887,2.47381610374423,2.47439439331481],"lat":[48.9183590078641,48.9183664802221,48.9183900589033,48.9166018643929,48.9165200622501,48.9183590078641]}]],[[{"lng":[2.47883377215883,2.47910639502584,2.47639051458029,2.47611779502455,2.47883377215883],"lat":[48.9096325383711,48.9078443252154,48.9076608588087,48.9094490643309,48.9096325383711]}]],[[{"lng":[2.49676190407015,2.49703379797248,2.49431838761072,2.49404639705605,2.49676190407015],"lat":[48.9000024104036,48.8982141383085,48.8980311135289,48.8998193780108,48.9000024104036]}]],[[{"lng":[2.47094460893106,2.47095880874178,2.47091441804978,2.47094460893106],"lat":[48.9073867716818,48.9072937280348,48.9072907265108,48.9073867716818]}]],[[{"lng":[2.48100464073098,2.48127721661155,2.4785611244324,2.47828845184331,2.48100464073098],"lat":[48.9133923813894,48.9116041650057,48.9114207493245,48.9132089580759,48.9133923813894]}]],[[{"lng":[2.48589998582717,2.4861722663236,2.48345692918172,2.48318455204313,2.48589998582717],"lat":[48.8992698849673,48.8974816433408,48.8972983546642,48.8990865886668,48.8992698849673]}]],[[{"lng":[2.48046913658243,2.48074161036065,2.47802630986672,2.47775373945142,2.48046913658243],"lat":[48.8989032263912,48.897115000015,48.8969315793942,48.8987197981412,48.8989032263912]}]],[[{"lng":[2.48317581507416,2.48344834394419,2.48073203999314,2.48045941439481,2.48317581507416],"lat":[48.9171521801323,48.9153639605193,48.9151805955721,48.9169688075542,48.9171521801323]}]],[[{"lng":[2.49594607361979,2.49621804189702,2.49350234155243,2.49323027659703,2.49594607361979],"lat":[48.9053672134906,48.9035789479943,48.9033959003731,48.9051841582542,48.9053672134906]}]],[[{"lng":[2.4692287732456,2.46928403584253,2.46933477291404,2.46923759857158,2.4692287732456],"lat":[48.8999968398673,48.9002897657909,48.899957311188,48.8999507383718,48.8999968398673]}]],[[{"lng":[2.47774303206426,2.47801575438835,2.47529948713615,2.47502666808887,2.47774303206426],"lat":[48.9167853689742,48.9149971646257,48.9148136676808,48.9166018643929,48.9167853689742]}]],[[{"lng":[2.48399332713185,2.48426578145593,2.48154976763807,2.48127721661155,2.48399332713185],"lat":[48.911787514693,48.9099992884793,48.9098159464208,48.9116041650057,48.911787514693]}]],[[{"lng":[2.47503836065642,2.47531102770626,2.47259576388559,2.47232300020377,2.47503836065642],"lat":[48.8985363039174,48.8967480928023,48.8965645402401,48.8983527437207,48.8985363039174]}]],[[{"lng":[2.49757751142478,2.49730566708962,2.50002099909426,2.50015643487678,2.49980910031052,2.49757751142478],"lat":[48.8946375875173,48.8964258640132,48.896608815207,48.8957175717253,48.8947879492033,48.8946375875173]}]],[[{"lng":[2.50002099909426,2.50016703930639,2.50018677025534,2.50015643487678,2.50002099909426],"lat":[48.896608815207,48.8966186529584,48.8957987610936,48.8957175717253,48.896608815207]}]],[[{"lng":[2.49459035337159,2.49486229434187,2.49214709554934,2.49187505794648,2.49459035337159],"lat":[48.8962428468459,48.8944545779617,48.8942715024363,48.896059763706,48.8962428468459]}]],[[{"lng":[2.48045941439481,2.48073203999314,2.47801575438835,2.47774303206426,2.48045941439481],"lat":[48.9169688075542,48.9151805955721,48.9149971646257,48.9167853689742,48.9169688075542]}]],[[{"lng":[2.47775373945142,2.47802630986672,2.47531102770626,2.47503836065642,2.47775373945142],"lat":[48.8987197981412,48.8969315793942,48.8967480928023,48.8985363039174,48.8987197981412]}]],[[{"lng":[2.4696076580998,2.47232300020377,2.47259576388559,2.46992041217822,2.46972168747024,2.4696076580998],"lat":[48.8981691175517,48.8983527437207,48.8965645402401,48.8963836199803,48.8974218390233,48.8981691175517]}]],[[{"lng":[2.48209479514193,2.4823672716257,2.47965156619448,2.47937899303664,2.48209479514193],"lat":[48.9062395026459,48.9044512774552,48.9042678922958,48.906056109857,48.9062395026459]}]],[[{"lng":[2.47937899303664,2.47965156619448,2.47693587910058,2.47666320927123,2.47937899303664],"lat":[48.906056109857,48.9042678922958,48.9040844411539,48.9058726510831,48.906056109857]}]],[[{"lng":[2.49947742937592,2.49974922662338,2.49703379797248,2.49676190407015,2.49947742937592],"lat":[48.9001853768177,48.8983970971121,48.8982141383085,48.9000024104036,48.9001853768177]}]],[[{"lng":[2.47611779502455,2.47639051458029,2.4736746524835,2.47340183624156,2.47611779502455],"lat":[48.9094490643309,48.9076608588087,48.9074773264149,48.909265524301,48.9094490643309]}]],[[{"lng":[2.49214176867638,2.49241393287785,2.48969786408216,2.48942560317061,2.49214176867638],"lat":[48.9123371677847,48.9105489187004,48.9103657746198,48.9121540160832,48.9123371677847]}]],[[{"lng":[2.47828845184331,2.4785611244324,2.47584505060076,2.47557228130571,2.47828845184331],"lat":[48.9132089580759,48.9114207493245,48.9112372676501,48.9130254687667,48.9132089580759]}]],[[{"lng":[2.47693587910058,2.47720852407158,2.47449295198169,2.47422021035033,2.47693587910058],"lat":[48.9040844411539,48.9022962290207,48.9021127195311,48.9039009240303,48.9040844411539]}]],[[{"lng":[2.47422021035033,2.47449295198169,2.47177739823923,2.47150455995007,2.47422021035033],"lat":[48.9039009240303,48.9021127195311,48.9019291440631,48.9037173409256,48.9039009240303]}]],[[{"lng":[2.4720749665716,2.47312899512297,2.47340183624156,2.47149467131258,2.4720749665716],"lat":[48.9109824714166,48.9110537199834,48.909265524301,48.9091366005976,48.9109824714166]}]],[[{"lng":[2.47666320927123,2.47693587910058,2.47422021035033,2.47394744385201,2.47666320927123],"lat":[48.9058726510831,48.9040844411539,48.9039009240303,48.9056891263248,48.9058726510831]}]],[[{"lng":[2.47449295198169,2.47476566874931,2.47205021165606,2.47177739823923,2.47449295198169],"lat":[48.9021127195311,48.9003245128269,48.9001409449949,48.9019291440631,48.9021127195311]}]],[[{"lng":[2.46991038003432,2.47150455995007,2.47177739823923,2.46956510238219,2.46991038003432],"lat":[48.9036095395098,48.9037173409256,48.9019291440631,48.9017795395622,48.9036095395098]}]],[[{"lng":[2.49187505794648,2.49214709554934,2.48943191505353,2.48915978082064,2.49187505794648],"lat":[48.896059763706,48.8942715024363,48.8940883609415,48.8958766145943,48.896059763706]}]],[[{"lng":[2.47340183624156,2.4736746524835,2.47095880874178,2.47094460893106,2.47149467131258,2.47340183624156],"lat":[48.909265524301,48.9074773264149,48.9072937280348,48.9073867716818,48.9091366005976,48.909265524301]}]],[[{"lng":[2.48019663796415,2.48046913658243,2.47775373945142,2.47748114418745,2.48019663796415],"lat":[48.9006914505632,48.8989032263912,48.8987197981412,48.9005080146832,48.9006914505632]}]],[[{"lng":[2.48291215007308,2.48318455204313,2.48046913658243,2.48019663796415,2.48291215007308],"lat":[48.900874820466,48.8990865886668,48.8989032263912,48.9006914505632,48.900874820466]}]],[[{"lng":[2.48915978082064,2.48943191505353,2.48671675286079,2.4864445220004,2.48915978082064],"lat":[48.8958766145943,48.8940883609415,48.8939051534782,48.8956933995112,48.8958766145943]}]],[[{"lng":[2.49730566708962,2.49757751142478,2.49486229434187,2.49459035337159,2.49730566708962],"lat":[48.8964258640132,48.8946375875173,48.8944545779617,48.8962428468459,48.8964258640132]}]],[[{"lng":[2.48372928149208,2.48400160897743,2.48128648340979,2.48101405930203,2.48372928149208],"lat":[48.8955101184577,48.8937218800471,48.8935385406488,48.8953267714343,48.8955101184577]}]],[[{"lng":[2.49540206266789,2.49567408054449,2.49295818683495,2.49268607226296,2.49540206266789],"lat":[48.9089437378867,48.907155476788,48.9069724139355,48.9087606674175,48.9089437378867]}]],[[{"lng":[2.48698181360608,2.48725414639158,2.48453821093782,2.48426578145593,2.48698181360608],"lat":[48.9101825645459,48.9083943285058,48.9082110600646,48.9099992884793,48.9101825645459]}]],[[{"lng":[2.47557228130571,2.47584505060076,2.47312899512297,2.47285612912449,2.47557228130571],"lat":[48.9130254687667,48.9112372676501,48.9110537199834,48.9128419134623,48.9130254687667]}]],[[{"lng":[2.48101405930203,2.48128648340979,2.4785713761642,2.47829885543657,2.48101405930203],"lat":[48.8953267714343,48.8935385406488,48.8933551352842,48.8951433584419,48.8953267714343]}]],[[{"lng":[2.4864445220004,2.48671675286079,2.48400160897743,2.48372928149208,2.4864445220004],"lat":[48.8956933995112,48.8939051534782,48.8937218800471,48.8955101184577,48.8956933995112]}]],[[{"lng":[2.4702617834348,2.47286850270475,2.47314121666449,2.47060313098766,2.4702617834348],"lat":[48.8946000573719,48.8947763345528,48.8929881266586,48.8928164925387,48.8946000573719]}]],[[{"lng":[2.47801575438835,2.47828845184331,2.47557228130571,2.47529948713615,2.47801575438835],"lat":[48.9149971646257,48.9132089580759,48.9130254687667,48.9148136676808,48.9149971646257]}]],[[{"lng":[2.47558366990203,2.47585628724699,2.47314121666449,2.47286850270475,2.47558366990203],"lat":[48.8949598794812,48.8931716639538,48.8929881266586,48.8947763345528,48.8949598794812]}]],[[{"lng":[2.49241393287785,2.49268607226296,2.48997010016874,2.48969786408216,2.49241393287785],"lat":[48.9105489187004,48.9087606674175,48.908577530957,48.9103657746198,48.9105489187004]}]],[[{"lng":[2.49567408054449,2.49540206266789,2.49705953377267,2.49820079221076,2.49567408054449],"lat":[48.907155476788,48.9089437378867,48.9090554256537,48.9073257274596,48.907155476788]}]],[[{"lng":[2.49105879632987,2.49133090833997,2.48861543792823,2.48834322926227,2.49105879632987],"lat":[48.9014245343049,48.89963627964,48.8994531152919,48.9012413623376,48.9014245343049]}]],[[{"lng":[2.47829885543657,2.4785713761642,2.47585628724699,2.47558366990203,2.47829885543657],"lat":[48.8951433584419,48.8933551352842,48.8931716639538,48.8949598794812,48.8951433584419]}]],[[{"lng":[2.49540206266789,2.49513001998679,2.49591819895414,2.49705953377267,2.49540206266789],"lat":[48.9089437378867,48.910731996787,48.9107851110276,48.9090554256537,48.9089437378867]}]],[[{"lng":[2.46933477291404,2.4696076580998,2.46957901722365,2.46923759857158,2.46933477291404],"lat":[48.899957311188,48.8981691175517,48.8981671803194,48.8999507383718,48.899957311188]}]],[[{"lng":[2.49268607226296,2.49295818683495,2.49024231143358,2.48997010016874,2.49268607226296],"lat":[48.9087606674175,48.9069724139355,48.9067892850943,48.908577530957,48.9087606674175]}]],[[{"lng":[2.49186957965534,2.4915973658115,2.49249373796415,2.49363530109911,2.49186957965534],"lat":[48.9141254146705,48.9159136593582,48.9159740874433,48.9142444418613,48.9141254146705]}]],[[{"lng":[2.48834322926227,2.48861543792823,2.48589998582717,2.4856276805079,2.48834322926227],"lat":[48.9012413623376,48.8994531152919,48.8992698849673,48.901058124391,48.9012413623376]}]],[[{"lng":[2.48481061558073,2.4850829953879,2.4823672716257,2.48209479514193,2.48481061558073],"lat":[48.9064228294488,48.9046345966315,48.9044512774552,48.9062395026459,48.9064228294488]}]],[[{"lng":[2.4856276805079,2.48589998582717,2.48318455204313,2.48291215007308,2.4856276805079],"lat":[48.901058124391,48.8992698849673,48.8990865886668,48.900874820466,48.901058124391]}]],[[{"lng":[2.4915973658115,2.48888100685972,2.48860867145392,2.490946160931,2.49135645697925,2.4915973658115],"lat":[48.9159136593582,48.915730492413,48.91751872728,48.91767635138,48.9174961133247,48.9159136593582]}]],[[{"lng":[2.48997010016874,2.49024231143358,2.48752645434673,2.48725414639158,2.48997010016874],"lat":[48.908577530957,48.9067892850943,48.9066060902652,48.9083943285058,48.908577530957]}]],[[{"lng":[2.4964899853794,2.49676190407015,2.49404639705605,2.49377438170436,2.4964899853794],"lat":[48.9017906802988,48.9000024104036,48.8998193780108,48.9016076402921,48.9017906802988]}]],[[{"lng":[2.48670945598699,2.48698181360608,2.48426578145593,2.48399332713185,2.48670945598699],"lat":[48.9119707983858,48.9101825645459,48.9099992884793,48.911787514693,48.9119707983858]}]],[[{"lng":[2.49513001998679,2.49241393287785,2.49214176867638,2.49477678782841,2.49488335364361,2.49513001998679],"lat":[48.910731996787,48.9105489187004,48.9123371677847,48.9125147834567,48.9123533011156,48.910731996787]}]],[[{"lng":[2.4736746524835,2.47394744385201,2.47123169678533,2.47095880874178,2.4736746524835],"lat":[48.9074773264149,48.9056891263248,48.9055055355828,48.9072937280348,48.9074773264149]}]],[[{"lng":[2.49296305959495,2.49454403763107,2.49300997642464,2.49296305959495],"lat":[48.8889067054118,48.8890133104732,48.8885981888569,48.8889067054118]}]],[[{"lng":[2.4696076580998,2.46972168747024,2.46957901722365,2.4696076580998],"lat":[48.8981691175517,48.8974218390233,48.8981671803194,48.8981691175517]}]],[[{"lng":[2.48318455204313,2.48345692918172,2.48074161036065,2.48046913658243,2.48318455204313],"lat":[48.8990865886668,48.8972983546642,48.897115000015,48.8989032263912,48.8990865886668]}]],[[{"lng":[2.48426578145593,2.48453821093782,2.48182229381379,2.48154976763807,2.48426578145593],"lat":[48.9099992884793,48.9082110600646,48.9080277256343,48.9098159464208,48.9099992884793]}]],[[{"lng":[2.48860867145392,2.48888100685972,2.48616466623517,2.48589223409598,2.48860867145392],"lat":[48.91751872728,48.915730492413,48.9155472594665,48.9173354867079,48.91751872728]}]],[[{"lng":[2.48453821093782,2.48481061558073,2.48209479514193,2.48182229381379,2.48453821093782],"lat":[48.9082110600646,48.9064228294488,48.9062395026459,48.9080277256343,48.9082110600646]}]],[[{"lng":[2.49513001998679,2.49540206266789,2.49268607226296,2.49241393287785,2.49513001998679],"lat":[48.910731996787,48.9089437378867,48.9087606674175,48.9105489187004,48.910731996787]}]],[[{"lng":[2.48589223409598,2.48616466623517,2.48344834394419,2.48317581507416,2.48589223409598],"lat":[48.9173354867079,48.9155472594665,48.9153639605193,48.9171521801323,48.9173354867079]}]],[[{"lng":[2.48154976763807,2.48182229381379,2.47910639502584,2.47883377215883,2.48154976763807],"lat":[48.9098159464208,48.9080277256343,48.9078443252154,48.9096325383711,48.9098159464208]}]],[[{"lng":[2.47884387205283,2.47911634310569,2.47640144739732,2.47612887974434,2.47884387205283],"lat":[48.8915669099205,48.8897786823507,48.8895952262791,48.8913834462199,48.8915669099205]}]],[[{"lng":[2.48073203999314,2.48100464073098,2.47828845184331,2.47801575438835,2.48073203999314],"lat":[48.9151805955721,48.9133923813894,48.9132089580759,48.9149971646257,48.9151805955721]}]],[[{"lng":[2.48344834394419,2.48372084796235,2.48100464073098,2.48073203999314,2.48344834394419],"lat":[48.9153639605193,48.9135757387063,48.9133923813894,48.9151805955721,48.9153639605193]}]],[[{"lng":[2.47381610374423,2.47502666808887,2.47529948713615,2.47323568283361,2.47381610374423],"lat":[48.9165200622501,48.9166018643929,48.9148136676808,48.9146742024062,48.9165200622501]}]],[[{"lng":[2.49377438170436,2.49404639705605,2.49133090833997,2.49105879632987,2.49377438170436],"lat":[48.9016076402921,48.8998193780108,48.89963627964,48.9014245343049,48.9016076402921]}]],[[{"lng":[2.48942560317061,2.48969786408216,2.48698181360608,2.48670945598699,2.48942560317061],"lat":[48.9121540160832,48.9103657746198,48.9101825645459,48.9119707983858,48.9121540160832]}]],[[{"lng":[2.47205021165606,2.47232300020377,2.4696076580998,2.46933477291404,2.47205021165606],"lat":[48.9001409449949,48.8983527437207,48.8981691175517,48.899957311188,48.9001409449949]}]],[[{"lng":[2.49920560734866,2.49947742937592,2.49676190407015,2.4964899853794,2.49920560734866],"lat":[48.901973654324,48.9001853768177,48.9000024104036,48.9017906802988,48.901973654324]}]],[[{"lng":[2.48155888268715,2.48183125713735,2.47911634310569,2.47884387205283,2.48155888268715],"lat":[48.8917503076581,48.889962072462,48.8897786823507,48.8915669099205,48.8917503076581]}]],[[{"lng":[2.48725414639158,2.48752645434673,2.48481061558073,2.48453821093782,2.48725414639158],"lat":[48.9083943285058,48.9066060902652,48.9064228294488,48.9082110600646,48.9083943285058]}]],[[{"lng":[2.486988958908,2.48726114014524,2.48454618948598,2.48427391164099,2.486988958908],"lat":[48.8921169052414,48.8903286548006,48.8901453966122,48.891933639432,48.8921169052414]}]],[[{"lng":[2.48127721661155,2.48154976763807,2.47883377215883,2.4785611244324,2.48127721661155],"lat":[48.9116041650057,48.9098159464208,48.9096325383711,48.9114207493245,48.9116041650057]}]],[[{"lng":[2.49241910835623,2.49269109637036,2.48997610910881,2.48970402448185,2.49241910835623],"lat":[48.8924832389642,48.8906949732894,48.8905118470266,48.8923001050857,48.8924832389642]}]],[[{"lng":[2.49024816893763,2.49296305959495,2.49300997642464,2.49037569623355,2.49024816893763],"lat":[48.8887235867639,48.8889067054118,48.8885981888569,48.8878852829851,48.8887235867639]}]],[[{"lng":[2.48263972326834,2.48291215007308,2.48019663796415,2.47992411450257,2.48263972326834],"lat":[48.902663050062,48.900874820466,48.9006914505632,48.9024796725313,48.902663050062]}]],[[{"lng":[2.48616466623517,2.48643707353109,2.48372084796235,2.48344834394419,2.48616466623517],"lat":[48.9155472594665,48.9137590300259,48.9135757387063,48.9153639605193,48.9155472594665]}]],[[{"lng":[2.47748114418745,2.47775373945142,2.47503836065642,2.47476566874931,2.47748114418745],"lat":[48.9005080146832,48.8987197981412,48.8985363039174,48.9003245128269,48.9005080146832]}]],[[{"lng":[2.49947742937592,2.49920560734866,2.50003680616118,2.50008022026566,2.49947742937592],"lat":[48.9001853768177,48.901973654324,48.9020296452029,48.9002259821176,48.9001853768177]}]],[[{"lng":[2.48970402448185,2.48997610910881,2.48726114014524,2.486988958908,2.48970402448185],"lat":[48.8923001050857,48.8905118470266,48.8903286548006,48.8921169052414,48.8923001050857]}]],[[{"lng":[2.47094445483966,2.47341390576801,2.47368657001856,2.4712857549937,2.47094445483966],"lat":[48.8910329254805,48.891199916557,48.8894117042478,48.889249356197,48.8910329254805]}]],[[{"lng":[2.48753329657574,2.49024816893763,2.49037569623355,2.48774148937298,2.48753329657574],"lat":[48.8885404021555,48.8887235867639,48.8878852829851,48.8871723190219,48.8885404021555]}]],[[{"lng":[2.4785611244324,2.47883377215883,2.47611779502455,2.47584505060076,2.4785611244324],"lat":[48.9114207493245,48.9096325383711,48.9094490643309,48.9112372676501,48.9114207493245]}]],[[{"lng":[2.47394744385201,2.47422021035033,2.47150455995007,2.47123169678533,2.47394744385201],"lat":[48.9056891263248,48.9039009240303,48.9037173409256,48.9055055355828,48.9056891263248]}]],[[{"lng":[2.49513421052478,2.49540610192355,2.49269109637036,2.49241910835623,2.49513421052478],"lat":[48.892666306876,48.8908780335883,48.8906949732894,48.8924832389642,48.892666306876]}]],[[{"lng":[2.47720852407158,2.47748114418745,2.47476566874931,2.47449295198169,2.47720852407158],"lat":[48.9022962290207,48.9005080146832,48.9003245128269,48.9021127195311,48.9022962290207]}]],[[{"lng":[2.48481844251562,2.48753329657574,2.48774148937298,2.48695430881762,2.48499124390648,2.48481844251562],"lat":[48.8883571515873,48.8885404021555,48.8871723190219,48.8869592487351,48.8872220465488,48.8883571515873]}]],[[{"lng":[2.47476566874931,2.47503836065642,2.47232300020377,2.47205021165606,2.47476566874931],"lat":[48.9003245128269,48.8985363039174,48.8983527437207,48.9001409449949,48.9003245128269]}]],[[{"lng":[2.49784933098119,2.49812112576205,2.49540610192355,2.49513421052478,2.49784933098119],"lat":[48.8928493088205,48.8910610279226,48.8908780335883,48.892666306876,48.8928493088205]}]],[[{"lng":[2.47612887974434,2.47640144739732,2.47368657001856,2.47341390576801,2.47612887974434],"lat":[48.8913834462199,48.8895952262791,48.8894117042478,48.891199916557,48.8913834462199]}]],[[{"lng":[2.47091441804978,2.47095880874178,2.47123169678533,2.47033420638694,2.47091441804978],"lat":[48.9072907265108,48.9072937280348,48.9055055355828,48.905444847912,48.9072907265108]}]],[[{"lng":[2.47584505060076,2.47611779502455,2.47340183624156,2.47312899512297,2.47584505060076],"lat":[48.9112372676501,48.9094490643309,48.909265524301,48.9110537199834,48.9112372676501]}]],[[{"lng":[2.49621804189702,2.4964899853794,2.49377438170436,2.49350234155243,2.49621804189702],"lat":[48.9035789479943,48.9017906802988,48.9016076402921,48.9033959003731,48.9035789479943]}]],[[{"lng":[2.47992411450257,2.48019663796415,2.47748114418745,2.47720852407158,2.47992411450257],"lat":[48.9024796725313,48.9006914505632,48.9005080146832,48.9022962290207,48.9024796725313]}]],[[{"lng":[2.48969786408216,2.48997010016874,2.48725414639158,2.48698181360608,2.48969786408216],"lat":[48.9103657746198,48.908577530957,48.9083943285058,48.9101825645459,48.9103657746198]}]],[[{"lng":[2.49513001998679,2.49488335364361,2.49591819895414,2.49513001998679],"lat":[48.910731996787,48.9123533011156,48.9107851110276,48.910731996787]}]],[[{"lng":[2.49350234155243,2.49377438170436,2.49105879632987,2.49078665951092,2.49350234155243],"lat":[48.9033959003731,48.9016076402921,48.9014245343049,48.9032127867686,48.9033959003731]}]],[[{"lng":[2.49920560734866,2.49893376053838,2.49999338900012,2.50003680616118,2.49920560734866],"lat":[48.901973654324,48.9037619296315,48.9038333072926,48.9020296452029,48.901973654324]}]],[[{"lng":[2.49142455137133,2.49188408096231,2.49249373796415,2.4915973658115,2.49135645697925,2.49142455137133],"lat":[48.9174662000283,48.9168977598842,48.9159740874433,48.9159136593582,48.9174961133247,48.9174662000283]}]],[[{"lng":[2.49893376053838,2.49920560734866,2.4964899853794,2.49621804189702,2.49893376053838],"lat":[48.9037619296315,48.901973654324,48.9017906802988,48.9035789479943,48.9037619296315]}]],[[{"lng":[2.4821036067636,2.48481844251562,2.48499124390648,2.48219148456114,2.4821036067636],"lat":[48.88817383506,48.8883571515873,48.8872220465488,48.8875967932524,48.88817383506]}]],[[{"lng":[2.48807099577885,2.48834322926227,2.4856276805079,2.48535535036255,2.48807099577885],"lat":[48.9030296071814,48.9012413623376,48.901058124391,48.9028463616123,48.9030296071814]}]],[[{"lng":[2.48427391164099,2.48454618948598,2.48183125713735,2.48155888268715,2.48427391164099],"lat":[48.891933639432,48.8901453966122,48.889962072462,48.8917503076581,48.891933639432]}]],[[{"lng":[2.49812112576205,2.49784933098119,2.49911671346808,2.49842437697708,2.49812112576205],"lat":[48.8910610279226,48.8928493088205,48.892934708176,48.891081462861,48.8910610279226]}]],[[{"lng":[2.47177739823923,2.47205021165606,2.46933477291404,2.46928403584253,2.46956510238219,2.47177739823923],"lat":[48.9019291440631,48.9001409449949,48.899957311188,48.9002897657909,48.9017795395622,48.9019291440631]}]],[[{"lng":[2.49078665951092,2.49105879632987,2.48834322926227,2.48807099577885,2.49078665951092],"lat":[48.9032127867686,48.9014245343049,48.9012413623376,48.9030296071814,48.9032127867686]}]],[[{"lng":[2.48535535036255,2.4856276805079,2.48291215007308,2.48263972326834,2.48535535036255],"lat":[48.9028463616123,48.901058124391,48.900874820466,48.902663050062,48.9028463616123]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"#444444","weight":1,"opacity":1,"fill":true,"fillColor":["#FFFFB2","#FD8D3C","#FD8D3C","#FFFFB2","#FD8D3C","#E31A1C","#FECC5C","#FECC5C","#E31A1C","#FECC5C","#FFFFB2","#FD8D3C","#E31A1C","#FFFFB2","#FFFFB2","#E31A1C","#FECC5C","#FECC5C","#FECC5C","#FFFFB2","#FFFFB2","#FD8D3C","#FECC5C","#FFFFB2","#FD8D3C","#E31A1C","#FECC5C","#FD8D3C","#E31A1C","#FD8D3C","#FFFFB2","#FD8D3C","#FD8D3C","#FFFFB2","#FFFFB2","#FFFFB2","#FD8D3C","#FD8D3C","#FFFFB2","#FD8D3C","#FD8D3C","#E31A1C","#E31A1C","#FECC5C","#E31A1C","#FD8D3C","#FECC5C","#FECC5C","#FFFFB2","#FD8D3C","#E31A1C","#FECC5C","#FD8D3C","#FD8D3C","#E31A1C","#E31A1C","#FFFFB2","#E31A1C","#FFFFB2","#E31A1C","#FECC5C","#E31A1C","#E31A1C","#FECC5C","#E31A1C","#E31A1C","#FD8D3C","#FECC5C","#FFFFB2","#FECC5C","#FD8D3C","#FECC5C","#FD8D3C","#E31A1C","#FD8D3C","#E31A1C","#FD8D3C","#FD8D3C","#FD8D3C","#FFFFB2","#FD8D3C","#FFFFB2","#FFFFB2","#FFFFB2","#FECC5C","#FECC5C","#E31A1C","#FD8D3C","#FFFFB2","#FECC5C","#E31A1C","#FD8D3C","#FFFFB2","#FECC5C","#E31A1C","#FECC5C","#E31A1C","#E31A1C","#FD8D3C","#FECC5C","#E31A1C","#E31A1C","#E31A1C","#FD8D3C","#FFFFB2","#E31A1C","#FD8D3C","#FD8D3C","#FECC5C","#FD8D3C","#FECC5C","#FD8D3C","#E31A1C","#FFFFB2","#FD8D3C","#FFFFB2","#FFFFB2","#FD8D3C","#E31A1C","#FECC5C","#E31A1C","#FECC5C","#E31A1C","#FECC5C","#E31A1C","#E31A1C","#E31A1C","#FFFFB2","#FFFFB2","#FD8D3C","#E31A1C","#FFFFB2","#FFFFB2","#E31A1C","#FECC5C","#FECC5C","#FD8D3C","#FFFFB2","#FFFFB2","#FFFFB2","#E31A1C","#FD8D3C","#FD8D3C","#E31A1C","#E31A1C","#E31A1C","#FFFFB2","#E31A1C","#FD8D3C","#FECC5C","#FECC5C","#FECC5C","#FFFFB2","#E31A1C","#E31A1C","#FECC5C","#FECC5C","#FFFFB2","#FD8D3C","#FECC5C","#FD8D3C","#FECC5C","#E31A1C","#E31A1C","#FFFFB2","#FECC5C","#FFFFB2","#FD8D3C","#FD8D3C","#FECC5C","#FFFFB2","#FD8D3C","#FD8D3C","#FFFFB2","#FD8D3C","#FFFFB2","#FFFFB2","#FD8D3C","#E31A1C","#FFFFB2","#FD8D3C","#FFFFB2","#FD8D3C","#FECC5C","#FECC5C","#FECC5C","#FFFFB2","#FD8D3C"],"fillOpacity":0.5,"smoothFactor":0.5,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},{"color":"white","weight":2,"bringToFront":true}]},{"method":"addLegend","args":[{"colors":["#FFFFCC , #FFEA99 14.536157779401%, #FFCC68 29.145361577794%, #FEA044 43.754565376187%, #FD6630 58.36376917458%, #E7261E 72.972972972973%, #BD0026 87.582176771366%, #800026 "],"labels":["20","40","60","80","100","120"],"na_color":null,"na_label":"NA","opacity":1,"position":"bottomright","type":"numeric","title":" Nb Ménage avec ou plus de 5 pers","extra":{"p_1":0.14536157779401,"p_n":0.87582176771366},"layerId":null,"className":"info legend","group":null}]},{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]}],"limits":{"lat":[48.8869592487351,48.9202350850934],"lng":[2.4692287732456,2.50018677025534]}},"evals":[],"jsHooks":[]}</script>
+<p>Ici je n’ai pas très bien compris la question posé. Mais j’ai quand meme essayé de faire un carroyage avec un.</p>
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<small><p>L6ECSIG Construction et utilisation des SIG</p></small>
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
